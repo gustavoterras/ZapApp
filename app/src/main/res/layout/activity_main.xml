@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="br.com.zapimoveis.app.viewModel.MainViewModel" />
+
+        <variable
+            name="viewModel"
+            type="MainViewModel" />
+
+    </data>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="br.com.zapimoveis.app.view.MainActivity">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:configuration="@{viewModel.recyclerConfiguration}" />
+
+            <LinearLayout
+                android:id="@+id/filter_content_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorOrangeDark"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_xlarge"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/AppTheme.TextViewContent.ColorWhite"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Preço" />
+
+                    <TextView
+                        android:id="@+id/seek_bar_max_value"
+                        style="@style/AppTheme.TextViewContent.ColorWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.field.strField}" />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.AppCompatSeekBar
+                    android:id="@+id/seek_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small" />
+
+                <TextView
+                    style="@style/AppTheme.TextViewContent.ColorWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ordenar" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/filter_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_small" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</layout>

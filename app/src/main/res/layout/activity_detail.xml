@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="br.com.zapimoveis.app.viewModel.PropertyDetailViewModel" />
+
+        <variable
+            name="viewModel"
+            type="PropertyDetailViewModel" />
+
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="br.com.zapimoveis.app.view.PropertyDetailActivity">
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="false"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical">
+
+                    <br.com.zapimoveis.app.view.component.GlideImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="225dp"
+                        android:scaleType="centerCrop"
+                        android:transitionName="picture"
+                        app:src="@{viewModel.property.urlImage}" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorGrayDivider" />
+
+                    <TextView
+                        style="@style/AppTheme.TextViewContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_default"
+                        android:text="@{viewModel.property.formattedDescription()}"
+                        android:transitionName="value" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorGrayDivider" />
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_default"
+                        app:flexWrap="nowrap"
+                        app:justifyContent="space_around"
+                        app:showDividerVertical="middle">
+
+                        <include
+                            layout="@layout/item_icon_detail"
+                            app:description="@{@string/bedrooms}"
+                            app:value="@{String.valueOf(viewModel.property.bedrooms)}"
+                            app:vector="@{@drawable/ic_bed}" />
+
+                        <include
+                            layout="@layout/item_icon_detail"
+                            app:description="@{@string/suites}"
+                            app:value="@{String.valueOf(viewModel.property.suites)}"
+                            app:vector="@{@drawable/ic_bathroom}" />
+
+                        <include
+                            layout="@layout/item_icon_detail"
+                            app:description="@{@string/parking}"
+                            app:value="@{String.valueOf(viewModel.property.parking)}"
+                            app:vector="@{@drawable/ic_car}" />
+
+                        <include
+                            layout="@layout/item_icon_detail"
+                            app:description="@{@string/total_area}"
+                            app:value="@{viewModel.property.formattedArea()}"
+                            app:vector="@{@drawable/ic_area}" />
+
+                    </com.google.android.flexbox.FlexboxLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorGrayDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="@{viewModel::sharedLocation}"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.8"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/padding_small">
+
+                            <include
+                                layout="@layout/item_icon"
+                                app:vector="@{@drawable/ic_pin}" />
+
+                            <TextView
+                                style="@style/AppTheme.TextViewContent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewModel.property.address.toString()}" />
+
+                        </LinearLayout>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/img_static_map"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:contentDescription="@null"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
+                                android:src="@drawable/shape_gradient_map"
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:contentDescription="@null" />
+
+                        </FrameLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorGrayDivider" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/comments_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_default"
+                    android:background="@color/colorWhite"
+                    android:minHeight="300dp"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorGrayDivider" />
+
+                    <include
+                        android:id="@+id/progress_layout"
+                        layout="@layout/item_progress" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/margin_default"
+            android:onClick="@{viewModel::doCall}"
+            android:src="@drawable/ic_call"
+            app:backgroundTint="@color/colorOrange"
+            app:elevation="6dp"
+            app:fabSize="normal"
+            app:layout_anchorGravity="bottom|right|end" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>

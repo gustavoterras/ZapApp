@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ZapApp</string>
+    <string name="action_filter">Filtro</string>
+
+    <string name="bedrooms">Quartos</string>
+    <string name="suites">Suites</string>
+    <string name="parking">Vagas</string>
+    <string name="total_area">Área Total</string>
+
+</resources>
