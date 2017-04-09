@@ -5,14 +5,13 @@ import android.content.res.TypedArray;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.TextView;
 
 import br.com.zapimoveis.app.R;
 
 /**
  * Created by gustavoterras on 06/04/17.
  */
-public class ExpandableTextView extends TextView {
+public class ExpandableTextView extends android.support.v7.widget.AppCompatTextView {
     private static final int DEFAULT_TRIM_LENGTH = 100;
     private static final String ELLIPSIS = "...  Leia mais";
 

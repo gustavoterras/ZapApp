@@ -2,8 +2,6 @@ package br.com.zapimoveis.app.view.component;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -14,7 +12,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
  * Created by gustavoterras on 06/04/17.
  */
 
-public class GlideImageView extends ImageView {
+public class GlideImageView extends android.support.v7.widget.AppCompatImageView {
     public GlideImageView(Context context) {
         super(context);
     }
@@ -25,11 +23,6 @@ public class GlideImageView extends ImageView {
 
     public GlideImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public GlideImageView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @BindingAdapter("app:src")

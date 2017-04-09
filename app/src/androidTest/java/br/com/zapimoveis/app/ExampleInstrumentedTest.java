@@ -1,7 +1,5 @@
 package br.com.zapimoveis.app;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.action.GeneralClickAction;
 import android.support.test.espresso.action.GeneralLocation;
 import android.support.test.espresso.action.Press;
@@ -33,8 +31,6 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void useAppContext() throws Exception {
-
-        Context appContext = InstrumentationRegistry.getTargetContext();
 
         onView(withId(R.id.action_filter)).perform(click());
 
