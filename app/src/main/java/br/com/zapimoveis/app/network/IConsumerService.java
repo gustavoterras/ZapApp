@@ -4,8 +4,7 @@ import com.google.gson.JsonObject;
 
 import java.util.Map;
 
-import br.com.zapimoveis.app.model.Properties;
-import br.com.zapimoveis.app.model.PropertyDetail;
+import br.com.zapimoveis.app.model.Result;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -19,10 +18,10 @@ import retrofit2.http.Path;
 public interface IConsumerService {
 
     @GET("/imoveis")
-    Call<Properties> getProperties();
+    Call<Result> getProperties();
 
     @GET("/imoveis/{id}")
-    Call<PropertyDetail> getPropertyById(@Path("id") int id);
+    Call<Result> getDetailById(@Path("id") long id);
 
     @POST("/imoveis/contato")
     Call<JsonObject> doContact(@Body Map body);

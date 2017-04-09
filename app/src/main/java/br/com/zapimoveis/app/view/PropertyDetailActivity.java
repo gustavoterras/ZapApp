@@ -11,6 +11,9 @@ import br.com.zapimoveis.app.R;
 import br.com.zapimoveis.app.databinding.ActivityDetailBinding;
 import br.com.zapimoveis.app.viewModel.PropertyDetailViewModel;
 
+/**
+ * Created by gustavoterras on 06/04/17.
+ */
 public class PropertyDetailActivity extends AppCompatActivity {
 
     @Override
@@ -21,9 +24,11 @@ public class PropertyDetailActivity extends AppCompatActivity {
 
         if (propertyId < 0) finish();
 
+        // faz o bind da view com a viewModel
         ActivityDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         binding.setViewModel(new PropertyDetailViewModel(this, findViewById(android.R.id.content), propertyId));
 
+        // transição da view
         Slide slide = new Slide(Gravity.BOTTOM);
         slide.addTarget(R.id.comments_layout);
         slide.setInterpolator(AnimationUtils.loadInterpolator(this, android.R.interpolator.accelerate_decelerate));

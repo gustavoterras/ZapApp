@@ -6,5 +6,10 @@
     <string name="suites">Suites</string>
     <string name="parking">Vagas</string>
     <string name="total_area">Área Total</string>
+    <string name="common_area">Área Comum</string>
+    <string name="characteristics">Características do imóvel</string>
+    <string name="description">Descrição</string>
+    <string name="price">Preço</string>
+    <string name="sort">Ordenar</string>
 
 </resources>

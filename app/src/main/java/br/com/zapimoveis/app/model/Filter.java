@@ -5,6 +5,9 @@ import android.databinding.Bindable;
 
 import br.com.zapimoveis.app.BR;
 
+/**
+ * Created by gustavoterras on 06/04/17.
+ */
 public class Filter extends BaseObservable {
 
     private String name;

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSeekBar;
@@ -24,8 +23,8 @@ import br.com.zapimoveis.app.R;
 import br.com.zapimoveis.app.dao.DataManager;
 import br.com.zapimoveis.app.model.Field;
 import br.com.zapimoveis.app.model.Filter;
-import br.com.zapimoveis.app.model.Properties;
 import br.com.zapimoveis.app.model.Property;
+import br.com.zapimoveis.app.model.Result;
 import br.com.zapimoveis.app.network.ConsumerService;
 import br.com.zapimoveis.app.view.PropertyDetailActivity;
 import br.com.zapimoveis.app.view.adapter.RecyclerBindingAdapter;
@@ -39,7 +38,7 @@ import io.realm.Sort;
  * Created by gustavoterras on 06/04/17.
  */
 
-public class MainViewModel implements ConsumerService.OnTaskCompleted<Properties>, RecyclerBindingAdapter.OnItemClickListener<Property> {
+public class MainViewModel implements ConsumerService.OnTaskCompleted<Result>, RecyclerBindingAdapter.OnItemClickListener<Property> {
 
     private static final String TAG = MainViewModel.class.getSimpleName();
     public RecyclerConfiguration recyclerConfiguration;
@@ -72,6 +71,9 @@ public class MainViewModel implements ConsumerService.OnTaskCompleted<Properties
         initFilter();
     }
 
+    /**
+     * Inicializa o componente seekbar com os dados ja carregados no banco
+     */
     private void initSeekBar(){
 
         final long maxValue = properties.where().max("salesPrice").longValue();
@@ -103,6 +105,9 @@ public class MainViewModel implements ConsumerService.OnTaskCompleted<Properties
         });
     }
 
+    /**
+     * Inicializa o componente swipelayout
+     */
     private void initSwipeLayout(){
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -114,6 +119,9 @@ public class MainViewModel implements ConsumerService.OnTaskCompleted<Properties
         });
     }
 
+    /**
+     * Inicializa a recyclerview
+     */
     private void initRecycler() {
         adapter = getAdapter();
         adapter.setOnItemClickListener(this);
@@ -123,6 +131,9 @@ public class MainViewModel implements ConsumerService.OnTaskCompleted<Properties
         recyclerConfiguration.setAdapter(adapter);
     }
 
+    /**
+     * Inicializa o filtro com dados pre-cadastrados
+     */
     private void initFilter(){
         filters = new ArrayList<>();
 
@@ -152,18 +163,31 @@ public class MainViewModel implements ConsumerService.OnTaskCompleted<Properties
         filterRecyclerView.setAdapter(filterAdapter);
     }
 
+    /**
+     * Inicializa um adapter com uma lista vaiza, para que depois
+     * de terminar o request ela seja renovada com dados vindos
+     * do servidor
+     * @return
+     */
     private RecyclerBindingAdapter<Property> getAdapter() {
         return new RecyclerBindingAdapter<>(R.layout.item_property_list, br.com.zapimoveis.app.BR.property, new ArrayList<Property>());
     }
 
+    /**
+     * Sucesso do request
+     * @param result
+     * @param code
+     * @param requestCode
+     */
     @Override
-    public void onSuccess(Properties response, int code, int requestCode) {
+    public void onSuccess(Result result, int code, int requestCode) {
 
         if (code != 200) return;
 
         if (swipeRefreshLayout.isRefreshing()) swipeRefreshLayout.setRefreshing(false);
 
-        DataManager.save(response.getProperties());
+        DataManager.deleteAll(Property.class);
+        DataManager.save(result.getProperties());
 
         properties = DataManager.selectAll(Property.class);
 
@@ -179,14 +203,13 @@ public class MainViewModel implements ConsumerService.OnTaskCompleted<Properties
 
     @Override
     public void onItemClick(int position, View view, Property item) {
-
-        Pair<View, String> picture = new Pair<>(view.findViewById(R.id.picture), "picture");
-        Pair<View, String> value = new Pair<>(view.findViewById(R.id.value), "value");
-
-        Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation((AppCompatActivity) context, picture, value).toBundle();
+        Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation((AppCompatActivity) context, view.findViewById(R.id.picture), "picture").toBundle();
         context.startActivity(new Intent(context, PropertyDetailActivity.class).putExtra("extra", item.getCodProperty()), bundle);
     }
 
+    /**
+     * Atualiza o filtro, desmarcando todos os itens selecionados
+     */
     private void refreshFilter(){
         for (Filter filter : filters) {
             filter.setSelected(false);

@@ -41,15 +41,4 @@ public class GlideImageView extends ImageView {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(view);
     }
-
-    @BindingAdapter("app:circle")
-    public static void circle(ImageView view, String url) {
-        Glide.with(view.getContext())
-                .load(url)
-                .centerCrop()
-                .crossFade(1000)
-                .bitmapTransform(new CropCircleTransformation(view.getContext()))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(view);
-    }
 }

@@ -15,7 +15,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by gustavoterras on 06/04/17.
  */
 
-public class Property extends RealmObject {
+public class Property extends RealmObject{
 
     @SerializedName("CodImovel")
     @PrimaryKey

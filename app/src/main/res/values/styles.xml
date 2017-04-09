@@ -14,6 +14,13 @@
         <item name="android:statusBarColor">@color/colorOrangeDark</item>
     </style>
 
+    <!--TextView Style Title-->
+    <style name="AppTheme.TextViewTitle">
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:textColor">@color/colorGray</item>
+        <item name="android:layout_marginBottom">@dimen/margin_small</item>
+        <item name="android:layout_marginTop">@dimen/margin_small</item>
+    </style>
 
     <!--TextView Style Content-->
     <style name="AppTheme.TextViewContent">

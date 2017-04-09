@@ -104,6 +104,10 @@ public class Address extends RealmObject {
         return String.format(Locale.getDefault(), "%s %s, %s ", street, number, neighborhood).toLowerCase();
     }
 
+    public String toFullString(){
+        return String.format(Locale.getDefault(), "%s %s %s %s %s %s %s", street, number, complement, neighborhood, zone, city ,state).toLowerCase();
+    }
+
     public String toGeo(){
         return String.format(Locale.getDefault(), "%s %s, %s ", street, city, state).toLowerCase();
     }
