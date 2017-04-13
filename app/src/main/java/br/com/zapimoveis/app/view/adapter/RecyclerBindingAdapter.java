@@ -46,13 +46,13 @@ public class RecyclerBindingAdapter<T> extends RecyclerView.Adapter<RecyclerBind
     }
 
     @Override
-    public void onBindViewHolder(BindingHolder holder, final int position) {
+    public void onBindViewHolder(final BindingHolder holder, final int position) {
         final T item = items.get(position);
         holder.getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (onItemClickListener != null)
-                    onItemClickListener.onItemClick(position, view, item);
+                    onItemClickListener.onItemClick(holder.getAdapterPosition(), view, item);
             }
         });
 
